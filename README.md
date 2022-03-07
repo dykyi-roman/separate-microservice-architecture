@@ -61,13 +61,13 @@ To make the code organised each module uses Layered Architecture and each functi
 
 **GNU/Linux platform**
 ```
-0.0.0.0    market.travel.docker
+0.0.0.0    app.docker
 ```
 **Mac OS X platform**
 ```
-127.0.0.1     market.travel.docker
+127.0.0.1  app.docker
 ```
 
 # Documentation
-1[Issues](/docs/issue.md)
-2[xDebug](/docs/xdebug.md)
+1 [Issues](/docs/issue.md)
+2 [xDebug](/docs/xdebug.md)
