@@ -1,37 +1,5 @@
 # Travel
   
-## Docker Install 
-
-### Native Docker for MAC
-
-1. Install the stable version [docker for MAC](https://docs.docker.com/docker-for-mac/install/#download-docker-for-mac)
-
-### Docker for Ubuntu (20.04 LTS)
-
-1. [Install docker-engine](https://docs.docker.com/engine/installation/linux/ubuntu/)
-2. [Manage Docker as a non-root user](https://docs.docker.com/engine/installation/linux/linux-postinstall/)
-3. [Install docker-compose (Version 1.6.2)](https://docs.docker.com/compose/install/)
-
-## Project Install
-
-* Run `make install`
-* Add docker machine IP to /etc/hosts
-
-## Available hosts
-
-* Travel: [https://market.travel.docker](https://market.travel.docker)
-
-### Hosts configuration 
-
-**GNU/Linux platform**
-```
-0.0.0.0    market.travel.docker
-```
-**Mac OS X platform**
-```
-127.0.0.1     market.travel.docker
-```
-
 # Architecture
 
 ![image](docs/m1.png)
@@ -68,6 +36,38 @@ To make the code organised each module uses Layered Architecture and each functi
 * GraphQL
 * Kubernetes
 * Vue 3.0
+
+## Docker Install 
+
+### Native Docker for MAC
+
+1. Install the stable version [docker for MAC](https://docs.docker.com/docker-for-mac/install/#download-docker-for-mac)
+
+### Docker for Ubuntu (20.04 LTS)
+
+1. [Install docker-engine](https://docs.docker.com/engine/installation/linux/ubuntu/)
+2. [Manage Docker as a non-root user](https://docs.docker.com/engine/installation/linux/linux-postinstall/)
+3. [Install docker-compose (Version 1.6.2)](https://docs.docker.com/compose/install/)
+
+## Project Install
+
+* Run `make install`
+* Add docker machine IP to /etc/hosts
+
+## Available hosts
+
+* Travel: [https://market.travel.docker](https://market.travel.docker)
+
+### Hosts configuration 
+
+**GNU/Linux platform**
+```
+0.0.0.0    market.travel.docker
+```
+**Mac OS X platform**
+```
+127.0.0.1     market.travel.docker
+```
 
 # Documentation
 1[Issues](/docs/issue.md)
