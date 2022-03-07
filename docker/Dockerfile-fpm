@@ -1,0 +1,10 @@
+FROM registry.gitlab.travel.company/common/ci-docker-images/base-php81:latest
+
+# Copy all project files to image
+COPY --chown=rzk code /var/www/code
+
+WORKDIR /var/www/code
+
+
+
+

@@ -1,0 +1,74 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "travel.fullname" . }}
+  labels:
+    {{- include "travel.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "travel.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "travel.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image_ngx.repository }}:{{ .Values.image_ngx.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image_ngx.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 81
+              protocol: TCP
+          livenessProbe:
+            tcpSocket:
+              port: 81
+          readinessProbe:
+            tcpSocket:
+              port: 81
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+        - name: php
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image_fpm.repository }}:{{ .Values.image_fpm.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image_fpm.pullPolicy }}
+          ports:
+            - name: php
+              containerPort: 9000
+              protocol: TCP
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+            - name: fpm-conf
+              mountPath: /config-fpm/
+      volumes:
+        - name: fpm-conf
+          configMap:
+            name: "fpm-conf"
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

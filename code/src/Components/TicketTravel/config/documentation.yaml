@@ -1,0 +1,279 @@
+segment:
+  description: >
+    ## TYPES:
+    
+    - **TYPE** - Enumeration type. Can take one of the listed values (`CATEGORY`, `ORDER`)
+    
+    _________________________________________
+    
+    ## GENERAL API ERRORS
+     - `0` - GRAPHQL_SCHEMA_VALIDATION_ERROR
+     - `1` - INVALID_JSON_FORMAT
+     - `2` - INVALID_SCHEMA_TYPE
+     - `3` - UNEXPECTED_EXCEPTION
+    _________________________________________
+  readSegment:
+    description: >
+      Read segment.
+      
+      ### API ERRORS
+      
+      #### Validation errors:
+        - `10310` - TRAVEL_ID_NOT_DEFINED  
+      
+      
+      #### Domain errors:
+        - `20309` - FAILED_TO_READ_SMART_TRAVEL
+
+  createSegment:
+    description: >
+      Create a new segment. This method allows you to do the next actions:   
+       - set travel title;
+       - add conditions. Example: {type: ORDER value: 5}
+
+
+      ### API ERRORS
+
+      #### Validation errors:
+        - `10301` - TRAVEL_TITLE_NOT_DEFINED  
+        - `10302` - TRAVEL_TITLE_MIN_LENGTH  
+        - `10303` - TRAVEL_TITLE_MAX_LENGTH  
+        - `10304` - CONDITIONS_NOT_DEFINED  
+        - `10305` - CONDITIONS_NOT_ARRAY  
+        - `10306` - CONDITIONS_IS_EMPTY  
+        - `10308` - CONDITION_VALUE_NOT_VALID  
+        - `10309` - CONDITION_TYPE_NOT_VALID  
+
+   
+      #### Domain errors:
+        - `20301` - FAILED_TO_CREATE_NUMBER_CONDITION
+        - `20302` - FAILED_TO_CREATE_TEXT_CONDITION
+        - `20303` - FAILED_TO_CREATE_FILTER_CONDITION
+        - `20310` - FAILED_TO_CREATE_SMART_TRAVEL
+        - `20313` - FAILED_TO_CREATE_QUERY
+    arguments:
+      conditions: > 
+        Array of Condition. Required fields: Condition(type: TYPE value: ID)
+  updateSegment:
+    description: >
+      Update segment. This method allows you to do the next actions:
+       - rename travel title;
+       - add a new conditions. Example: {type: ORDER value: 5};
+       - update existing condition by ID. Example: {type: SELLER value: 2 id: 25};
+
+       If an error occurs during the process, the field value will be null.
+
+
+      ### API ERRORS
+
+      #### Validation errors:
+        - `10302` - TRAVEL_TITLE_MIN_LENGTH  
+        - `10303` - TRAVEL_TITLE_MAX_LENGTH  
+        - `10306` - CONDITIONS_IS_EMPTY  
+        - `10307` - CONDITION_ID_NOT_VALID  
+        - `10308` - CONDITION_VALUE_NOT_VALID  
+        - `10309` - CONDITION_TYPE_NOT_VALID  
+        - `10310` - TRAVEL_ID_NOT_DEFINED  
+        - `10311` - QUERY_ID_NOT_DEFINED  
+
+
+      #### Domain errors:
+        - `20304` - FAILED_TO_UPDATE_NUMBER_CONDITION
+        - `20305` - FAILED_TO_UPDATE_TEXT_CONDITION
+        - `20306` - FAILED_TO_UPDATE_FILTER_CONDITION
+        - `20311` - FAILED_TO_RENAME_SMART_TRAVEL
+    arguments:
+      conditions: >
+        Array of Condition. Required fields: Condition(type: TYPE value: ID id: ID)
+  deleteCondition:
+    description: >
+      Delete condition.
+
+      ### API ERRORS
+
+      #### Validation errors:
+        - `10310` - TRAVEL_ID_NOT_DEFINED  
+
+
+      #### Domain errors:
+        - `20307` - FAILED_TO_DELETE_CONDITION
+        - `20308` - FAILED_TO_DELETE_FILTER
+
+  listOfCategories:
+    description: >
+      List of categories.
+
+      ### API ERRORS
+
+      #### Validation errors:
+        - `10101` - VALUE_NOT_DEFINED  
+        - `10102` - VALUE_TYPE_IS_WRONG  
+        - `10103` - ID_NOT_VALID  
+        - `10104` - TEXT_MIN_LENGTH  
+        - `10105` - TEXT_MAX_LENGTH  
+        - `10106` - START_FROM_SPECIAL_SYMBOL  
+
+
+      #### Domain errors:
+        - `20101` - CATEGORY_NOT_FOUND_BY_ID
+        - `20102` - CATEGORY_NOT_FOUND_BY_TITLE
+        - `20103` - CATEGORY_TITLE_IS_EMPTY
+    arguments:
+      value: Search possible by ID (int) or TITLE (string). Min length 2 symbol. Max length - 200 symbol.
+  listOfSellers:
+    description: >
+      List of sellers.
+
+      ### API ERRORS
+
+      #### Validation errors:
+        - `10201` - VALUE_NOT_DEFINED  
+        - `10202` - VALUE_TYPE_IS_WRONG  
+        - `10203` - ID_NOT_VALID  
+        - `10204` - TEXT_MIN_LENGTH  
+        - `10205` - TEXT_MAX_LENGTH  
+        - `10206` - START_FROM_SPECIAL_SYMBOL  
+
+
+      #### Domain errors:
+        - `20201` - SELLER_NOT_FOUND_BY_ID
+        - `20202` - SELLER_NOT_FOUND_BY_TITLE
+        - `20203` - SELLER_TITLE_IS_EMPTY
+    arguments:
+      value: Search possible by ID (int) or TITLE (string). Min length 2 symbol. Max length - 200 symbol.
+tariff:
+  description: >
+    ## TYPES:
+
+    - **UUID** - UUIDs are 128-bit numbers usually represented as five groups of hexadecimal characters: xxxxxxxx-xxxx-Mxxx-Nxxx-xxxxxxxxxxxx (the M digit is the UUID version and the N digit is the UUID variant
+
+    _________________________________________
+
+    ## GENERAL API ERRORS
+     - `0` - GRAPHQL_SCHEMA_VALIDATION_ERROR
+     - `1` - INVALID_JSON_FORMAT
+     - `2` - INVALID_SCHEMA_TYPE
+     - `3` - UNEXPECTED_EXCEPTION
+    _________________________________________
+  listOfLocationZones:
+    description: >
+      list of location zones.
+
+      ### API ERRORS
+
+      #### Validation errors:
+        - `10401` - VALUE_NOT_DEFINED  
+        - `10402` - VALUE_TYPE_IS_WRONG  
+        - `10403` - TEXT_MIN_LENGTH  
+        - `10404` - TEXT_MAX_LENGTH  
+
+
+      #### Domain errors:
+        - `20401` - LOCATION_ZONE_NOT_FOUND_BY_ID
+        - `20402` - LOCATION_ZONE_NOT_FOUND_BY_NAME
+        - `20403` - LOCATION_ZONE_NAME_IS_EMPTY
+    arguments:
+      value: Search possible by ID (uuid) or NAME (string). Min length 2 symbol. Max length - 200 symbol.
+  createTravelCost:
+    description: >
+      Create a new tariff cost.
+
+      ### API ERRORS
+
+      #### Validation errors:
+        - `10601` - NAME_MIN_LENGTH  
+        - `10602` - NAME_MAX_LENGTH  
+        - `10603` - INVALID_UUID  
+
+
+      #### Domain errors:
+        - `20601` - FAILED_TO_CREATE_TRAVEL_COST
+        - `20602` - TRAVEL_COST_ALREADY_EXISTS
+  updateTravelCost:
+    description: >
+      Update tariff cost.
+
+      ### API ERRORS
+
+      #### Validation errors:
+        - `10601` - NAME_MIN_LENGTH  
+        - `10602` - NAME_MAX_LENGTH  
+        - `10603` - INVALID_UUID  
+
+
+      #### Domain errors:
+        - `20602` - TRAVEL_COST_ALREADY_EXISTS
+        - `20603` - FAILED_TO_UPDATE_TRAVEL_COST
+  listOfTravelCosts:
+    description: >
+      List of tariff costs.
+
+      ### API ERRORS
+
+      #### Domain errors:
+        - `20604` - FAILED_TO_READ_TRAVEL_COST
+
+  createTravel:
+    description: >
+      Create a new tariff.
+
+      ### API ERRORS
+
+      #### Validation errors:
+        - `10500` - TRAVEL_SERVICE_NOT_SUPPORTED  
+        - `10501` - TRAVEL_METHOD_NOT_SUPPORTED  
+        - `10502` - TRAVEL_STRATEGY_NOT_SUPPORTED  
+        - `10503` - TEXT_MIN_LENGTH  
+        - `10504` - TEXT_MAX_LENGTH  
+
+
+      #### Domain errors:
+        - `20501` - FAILED_TO_CREATE_TRAVEL
+        - `20502` - TRAVEL_ALREADY_EXISTS
+        - `20506` - UNABLE_TO_ACTIVATE_TRAVEL
+  updateTravel:
+    description: >
+      Update tariff.
+      
+      ### API ERRORS
+
+      #### Validation errors:
+        - `10500` - TRAVEL_SERVICE_NOT_SUPPORTED  
+        - `10501` - TRAVEL_METHOD_NOT_SUPPORTED  
+        - `10503` - TEXT_MIN_LENGTH  
+        - `10504` - TEXT_MAX_LENGTH  
+
+
+      #### Domain errors:
+        - `20502` - TRAVEL_ALREADY_EXISTS
+        - `20503` - FAILED_TO_UPDATE_TRAVEL
+        - `20506` - UNABLE_TO_ACTIVATE_TRAVEL
+
+  readTravel:
+    description: >
+      Read tariff.
+
+      ### API ERRORS
+
+      #### Domain errors:
+        - `20504` - FAILED_TO_READ_TRAVEL
+
+  listOfTravels:
+    description: >
+      List of tariffs.
+     
+      ### API ERRORS
+      
+      #### Validation errors:
+        - `10505` - PAGE_MIN_LENGTH
+        - `10506` - ITEMS_PER_PAGE_MIN_LENGTH
+        - `10507` - ITEMS_PER_PAGE_MAX_LENGTH
+      
+
+      #### Domain errors:
+        - `20505` - FAILED_TO_READ_TRAVEL_LIST
+    arguments:
+      filters: >
+        List of Filter Object. Valid value for key: ['id', 'name', 'status', 'serviceId', 'methodId']
+        
+        Example: {"key": "name", "value": "test"}

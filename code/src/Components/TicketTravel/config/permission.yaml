@@ -1,0 +1,21 @@
+permissions:
+  access_travel_travel_create_tariff:
+    - CreateTravel
+    - CreateTravelCost
+    - CreateSegment
+    - ListOfLocationZones
+    - ListOfSellers
+    - ListOfCategories
+  access_travel_travel_update_tariff:
+    - UpdateTravel
+    - UpdateTravelCost
+    - UpdateSegment
+    - DeleteCondition
+    - ListOfLocationZones
+    - ListOfSellers
+    - ListOfCategories
+    - ReadTravel
+    - ReadSegment
+    - ListOfTravelCosts
+  access_travel_travel_view_tariff_list:
+    - ListOfTravels

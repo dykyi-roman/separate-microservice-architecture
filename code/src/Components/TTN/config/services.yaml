@@ -1,0 +1,13 @@
+parameters:
+
+services:
+  Travel\Components\TTN\Infrastructure\Gateway\Booking\BookingClient:
+    arguments:
+      - "%env(resolve:BOOKING_API_URL)%"
+      - "%env(resolve:BOOKING_API_USERNAME)%"
+      - "%env(resolve:BOOKING_API_PASSWORD)%"
+      - '@Travel\Infrastructure\Http\Client\GuzzleClient'
+
+  Travel\Components\TTN\Features\TrackDelivery\TrackDeliveryGatewayInterface: '@Travel\Components\TTN\Infrastructure\Gateway\Booking\TrackDeliveryGateway'
+  Travel\Components\TTN\Infrastructure\Gateway\Booking\TrackDeliveryGateway:
+    autowire: true

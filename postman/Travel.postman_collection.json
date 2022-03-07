@@ -1,0 +1,757 @@
+{
+	"info": {
+		"_postman_id": "f4d02ef4-094d-452b-a94e-f2a3bb59e45d",
+		"name": "Travel",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "TicketTravel",
+			"item": [
+				{
+					"name": "Segment",
+					"item": [
+						{
+							"name": "listsOfSellers",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true,
+								"disabledSystemHeaders": {}
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-AUTHORIZATION-TOKEN",
+										"value": "{{x-authorization-token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "query ListOfSellers($value: String!){\n    listOfSellers(value: $value) {\n        owoxid\n        marketId\n        title\n    }\n}",
+										"variables": "{\n    \"value\": \"Бьюти\"\n}"
+									}
+								},
+								"url": {
+									"raw": "{{travel-host}}/api/crm/segment",
+									"host": [
+										"{{travel-host}}"
+									],
+									"path": [
+										"api",
+										"crm",
+										"segment"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "listOfCategories",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "X-AUTHORIZATION-TOKEN",
+										"value": "{{x-authorization-token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "query ListOfCategories($value: String!){\n    listOfCategories(value: $value) {\n        id title\n    }\n}",
+										"variables": "{\n    \"value\": \"Te\"\n}"
+									}
+								},
+								"url": {
+									"raw": "{{travel-host}}/api/crm/segment",
+									"host": [
+										"{{travel-host}}"
+									],
+									"path": [
+										"api",
+										"crm",
+										"segment"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "readSegment",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true,
+								"disabledSystemHeaders": {}
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-AUTHORIZATION-TOKEN",
+										"value": "{{x-authorization-token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "query ReadSegment($id: ID!) {\n  readSegment(id: $id) {\n    queryId\n    title\n    conditions { id type value }\n  }\n}",
+										"variables": "{\n    \"id\": 1\n}"
+									}
+								},
+								"url": {
+									"raw": "{{travel-host}}/api/crm/segment",
+									"host": [
+										"{{travel-host}}"
+									],
+									"path": [
+										"api",
+										"crm",
+										"segment"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "createSegment",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"FolderId\", jsonData.data.createSegment.smartFolderId);",
+											"",
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"QueryId\", jsonData.data.createSegment.queryId);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "X-AUTHORIZATION-TOKEN",
+										"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJwcm9qZWN0LW5hbWUiOiJhZG1pbi1tYXJrZXQiLCJ1c2VyLWlkIjoxOTQsInVzZXItbG9naW4iOiJ2YWx1eXNraXkiLCJ1c2VyLXBlcm1pc3Npb25zIjpbImFjY2Vzc19tYXJrZXRfaHViX21lbnVfaXRlbSIsImFjY2Vzc19tYXJrZXRfaHViX3ZpZXdfdGFyaWZmX2xpc3QiLCJhY2Nlc3NfbWFya2V0X2h1Yl91cGRhdGVfdGFyaWZmIl0sImlhdCI6MTY0NTA5MjM4MSwiZXhwIjoxNjQ1MTI4MzgxfQ.J-WowgDbCKzBj0O9ZI_On6lRA2-CODfDlq6ZSOsOkGs",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "mutation CreateSegment($title: String! $conditions: [Condition]!){\n    createSegment(\n        title: $title, \n        conditions: $conditions\n    ) {\n        smartFolderId\n        queryId\n        conditionIds\n    }\n}",
+										"variables": "{\n    \"title\": \"name\",\n    \"conditions\": [\n        {\"type\": \"SSK\", \"value\": \"44\"}\n    ]\n}"
+									}
+								},
+								"url": {
+									"raw": "{{travel-host}}/api/crm/segment",
+									"host": [
+										"{{travel-host}}"
+									],
+									"path": [
+										"api",
+										"crm",
+										"segment"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "updateSegment",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "X-AUTHORIZATION-TOKEN",
+										"value": "{{x-authorization-token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "mutation UpdateSegment($travelId: ID! $queryId: ID! $conditions: [Condition]) {\n    updateSegment(\n        smartFolderId: $travelId,\n        queryId: $queryId,\n        title: \"test_segment\",\n        conditions: $conditions\n    ) {\n        title\n        conditionIds\n    }\n}",
+										"variables": "{\n    \"queryId\": {{QueryId}},\n    \"travelId\": {{FolderId}},\n    \"conditions\": [\n         {\"type\": \"SSK\", \"value\": \"1\", \"id\": 1},\n         {\"type\": \"SELLER\", \"value\": \"1\"}\n    ]\n}"
+									}
+								},
+								"url": {
+									"raw": "{{travel-host}}/api/crm/segment",
+									"host": [
+										"{{travel-host}}"
+									],
+									"path": [
+										"api",
+										"crm",
+										"segment"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "deleteCondition",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "X-AUTHORIZATION-TOKEN",
+										"value": "{{x-authorization-token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "mutation DeleteCondition($queryId: ID!) {\n    deleteCondition(\n        queryId: $queryId,\n        conditionId: 7936,\n        type: SLA\n    )\n}",
+										"variables": "{\n    \"queryId\": {{QueryId}}\n}"
+									}
+								},
+								"url": {
+									"raw": "{{travel-host}}/api/crm/segment",
+									"host": [
+										"{{travel-host}}"
+									],
+									"path": [
+										"api",
+										"crm",
+										"segment"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Travel",
+					"item": [
+						{
+							"name": "Travel-Cost",
+							"item": [
+								{
+									"name": "listOfTravelCosts",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "X-AUTHORIZATION-TOKEN",
+												"value": "{{x-authorization-token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "graphql",
+											"graphql": {
+												"query": "query ListOfTravelCosts($tariffId: ID!) {\n  listOfTravelCosts(tariffId: $tariffId){\n    id\n    createdBy\n    updatedBy\n    createdAt\n    updatedAt\n  }\n}",
+												"variables": "{\n    \"tariffId\": {{TravelId}}\n}"
+											}
+										},
+										"url": {
+											"raw": "{{travel-host}}/api/crm/tariff",
+											"host": [
+												"{{travel-host}}"
+											],
+											"path": [
+												"api",
+												"crm",
+												"tariff"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "createMarketTravelCost",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = JSON.parse(responseBody);",
+													"postman.setEnvironmentVariable(\"TravelCostffId\", jsonData.data.createTravelCost.id);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "X-AUTHORIZATION-TOKEN",
+												"value": "{{x-authorization-token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "graphql",
+											"graphql": {
+												"query": "mutation CreateTravelCost(\n    $tariffId: ID! \n    $name: String! \n    $limit: Float! \n    $price: Float!  \n    $smartFolderId: ID! \n    $locationZoneId: String! \n    $status: Int!\n    ){\n  createTravelCost(\n    tariffId: $tariffId,\n    smartFolderId: $smartFolderId,\n    locationZoneId: $locationZoneId,\n    name: $name,\n    limit: $limit,\n    price: $price,\n    status: $status\n  ){\n    id\n  }\n}",
+												"variables": "{\n    \"tariffId\": {{TravelId}},\n    \"name\": \"name\",\n    \"limit\": 10.2,\n    \"price\": 30.1,\n    \"smartFolderId\": 11,\n    \"locationZoneId\": \"01a90a9e-1b6b-46e9-9527-4cd5a1920777\",\n    \"status\": 0\n}"
+											}
+										},
+										"url": {
+											"raw": "{{travel-host}}/api/crm/tariff",
+											"host": [
+												"{{travel-host}}"
+											],
+											"path": [
+												"api",
+												"crm",
+												"tariff"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "updateMarketTravelCost",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "X-AUTHORIZATION-TOKEN",
+												"value": "{{x-authorization-token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "graphql",
+											"graphql": {
+												"query": "mutation UpdateTravelCost($id: ID! $name: String $limit: Float $price: Float  $smartFolderId: ID $locationZoneId: String $status: Int){\n  updateTravelCost(\n    id: $id,\n    smartFolderId: $smartFolderId,\n    locationZoneId: $locationZoneId,\n    name: $name,\n    limit: $limit,\n    price: $price,\n    status: $status\n  ){\n    id\n  }\n}",
+												"variables": "{\n    \"id\": {{TravelCostffId}},\n    \"name\": \"name\",\n    \"limit\": 10.2,\n    \"price\": 30.1,\n    \"smartFolderId\": 11,\n    \"locationZoneId\": \"01a90a9e-1b6b-46e9-9527-4cd5a1920777\",\n    \"status\": 0\n}"
+											}
+										},
+										"url": {
+											"raw": "{{travel-host}}/api/crm/tariff",
+											"host": [
+												"{{travel-host}}"
+											],
+											"path": [
+												"api",
+												"crm",
+												"tariff"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Travel",
+							"item": [
+								{
+									"name": "CreatTravel",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = JSON.parse(responseBody);",
+													"postman.setEnvironmentVariable(\"TravelId\", jsonData.data.createTravel.id);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "X-AUTHORIZATION-TOKEN",
+												"value": "{{x-authorization-token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "graphql",
+											"graphql": {
+												"query": "mutation CreateTravel($name: String! $serviceId: String! $methodId: String! $strategy: String! $status: Int!){\n  createTravel(\n    name: $name,\n    serviceId: $serviceId,\n    methodId: $methodId,\n    strategy: $strategy,\n    status: $status\n   ){\n    id\n  }\n}",
+												"variables": "{\n    \"name\": \"name\",\n    \"serviceId\": \"d9409b7b-3535-4ab6-8492-2e11c78e9777\",\n    \"methodId\": \"dfc7ab36-e40d-4770-beeb-f0fe6aba4777\",\n    \"strategy\": \"by_cost_limit\",\n    \"status\": 0\n}"
+											}
+										},
+										"url": {
+											"raw": "{{travel-host}}/api/crm/tariff",
+											"host": [
+												"{{travel-host}}"
+											],
+											"path": [
+												"api",
+												"crm",
+												"tariff"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "ReadTravel",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "X-AUTHORIZATION-TOKEN",
+												"value": "{{x-authorization-token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "graphql",
+											"graphql": {
+												"query": "query ReadTravel($id: ID!){\n  readTravel(id: $id) {\n    id\n    name\n    service { id name }\n    method { id name }\n    strategy { id name }\n    status { id name }\n    createdBy\n    updatedBy\n    createdAt\n    updatedAt\n  }\n}",
+												"variables": "{\n    \"id\": {{TravelId}}\n}"
+											}
+										},
+										"url": {
+											"raw": "{{travel-host}}/api/crm/tariff",
+											"host": [
+												"{{travel-host}}"
+											],
+											"path": [
+												"api",
+												"crm",
+												"tariff"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "ListOfTravels",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "X-AUTHORIZATION-TOKEN",
+												"value": "{{x-authorization-token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "graphql",
+											"graphql": {
+												"query": "\nquery ListOfTravels($page: Int! $itemsPerPage: Int!, $filters: [Filter]) {\n  listOfTravels(\n      page: $page\n      itemsPerPage: $itemsPerPage\n      filters: $filters\n    ) {\n        items { \n            id \n            name \n            service { id name }\n            method { id name }\n            strategy { id name }\n            status { id name }\n            createdBy \n            updatedBy \n            createdAt \n            updatedAt\n            }\n        pagination { totalCount pageCount itemsPerPage currentPage}\n  }\n}",
+												"variables": "    {\n    \"page\": 1,\n    \"itemsPerPage\": 34,\n    \"filters\": []\n}"
+											}
+										},
+										"url": {
+											"raw": "{{travel-host}}/api/crm/tariff",
+											"host": [
+												"{{travel-host}}"
+											],
+											"path": [
+												"api",
+												"crm",
+												"tariff"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "ListOfTravelsWithFilters",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "X-AUTHORIZATION-TOKEN",
+												"value": "{{x-authorization-token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "graphql",
+											"graphql": {
+												"query": "\nquery ListOfTravels($page: Int! $itemsPerPage: Int!, $filters: [Filter]) {\n  listOfTravels(\n      page: $page\n      itemsPerPage: $itemsPerPage\n      filters: $filters\n    ) {\n        items { \n            id \n            name \n            service { id name }\n            method { id name }\n            strategy { id name }\n            status { id name }\n            createdBy \n            updatedBy \n            createdAt \n            updatedAt}\n        pagination { totalCount pageCount itemsPerPage currentPage}\n  }\n}",
+												"variables": "{\n    \"page\": 1,\n    \"itemsPerPage\": 3,\n    \"filters\": [\n        {\"key\": \"name\", \"value\": \"test\"},\n        {\"key\": \"status\", \"value\": true},\n        {\"key\": \"serviceId\", \"value\": \"a22935a7-a190-482b-a6c6-33fffb80d777\"},\n        {\"key\": \"methodId\", \"value\": \"b270e4b3-57dc-40d9-8996-188dca234777\"}\n    ]\n}"
+											}
+										},
+										"url": {
+											"raw": "{{travel-host}}/api/crm/tariff",
+											"host": [
+												"{{travel-host}}"
+											],
+											"path": [
+												"api",
+												"crm",
+												"tariff"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "UpdateTravel",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "X-AUTHORIZATION-TOKEN",
+												"value": "{{x-authorization-token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "graphql",
+											"graphql": {
+												"query": "mutation UpdateTravel($id: Int!, $name: String $serviceId: String $methodId: String $status: Int){\n  updateTravel(\n    id: $id\n    name: $name\n    serviceId: $serviceId\n    methodId: $methodId\n    status: $status\n   ){\n    id\n  }\n}",
+												"variables": "{\n    \"id\": {{TravelId}},\n    \"name\": \"name\",\n    \"serviceId\": \"d9409b7b-3535-4ab6-8492-2e11c78e9777\",\n    \"methodId\": \"dfc7ab36-e40d-4770-beeb-f0fe6aba4777\",\n    \"status\": 0\n}"
+											}
+										},
+										"url": {
+											"raw": "{{travel-host}}/api/crm/tariff",
+											"host": [
+												"{{travel-host}}"
+											],
+											"path": [
+												"api",
+												"crm",
+												"tariff"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "locationZoneList",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-AUTHORIZATION-TOKEN",
+										"value": "{{x-authorization-token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "query ListOfLocationZones($value: String!){\n    listOfLocationZones(value: $value) {\n        id\n        name\n        active\n    }\n}",
+										"variables": "{\n    \"value\": \"0161229a-da22-4dd0-9c5d-6da4d3087777\"\n}"
+									}
+								},
+								"url": {
+									"raw": "{{travel-host}}/api/crm/tariff",
+									"host": [
+										"{{travel-host}}"
+									],
+									"path": [
+										"api",
+										"crm",
+										"tariff"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "TTN",
+			"item": [
+				{
+					"name": "Booking",
+					"item": [
+						{
+							"name": "track",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{CENT_JWT}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "mutation {\n  track(\n    expressNote: {\n      externalNumber: \"externalNumber\"\n      deliveryServiceId: \"cc917097-6f93-4199-b37c-383f04ced777\"\n      internalNumber: \"\"\n    }\n    async: true\n  ) {\n    id\n    externalNumber\n    internalNumber\n  }\n}",
+										"variables": ""
+									}
+								},
+								"url": {
+									"raw": "https://booking.preprod.travel.company/api",
+									"protocol": "https",
+									"host": [
+										"booking",
+										"preprod",
+										"travel",
+										"company"
+									],
+									"path": [
+										"api"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "trackCollection",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{CENT_JWT}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "mutation {\n  trackCollection(\n    expressNotes: [\n      {\n        externalNumber: \"externalNumber\"\n        deliveryServiceId: \"cc917097-6f93-4199-b37c-383f04ced777\"\n        internalNumber: \"internalNumber\"\n      }\n    ]\n  ) {\n    id\n    externalNumber\n    internalNumber\n  }\n}",
+										"variables": ""
+									}
+								},
+								"url": {
+									"raw": "https://booking.preprod.travel.company/api",
+									"protocol": "https",
+									"host": [
+										"booking",
+										"preprod",
+										"travel",
+										"company"
+									],
+									"path": [
+										"api"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "login",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"CENT_JWT\", jsonData.token);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {}
+							},
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"admin\",\n    \"password\": \"pass\"\n}"
+								},
+								"url": {
+									"raw": "https://booking.preprod.travel.company/api/auth/login",
+									"protocol": "https",
+									"host": [
+										"booking",
+										"preprod",
+										"travel",
+										"company"
+									],
+									"path": [
+										"api",
+										"auth",
+										"login"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	]
+}

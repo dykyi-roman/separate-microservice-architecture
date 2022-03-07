@@ -1,0 +1,25 @@
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping">
+    <entity table="action_log"
+            name="Travel\Components\TicketTravel\Features\Logger\Entity\ActionLog"
+            repository-class="Travel\Components\TicketTravel\Infrastructure\Repository\ActionLogRepository"
+            change-tracking-policy="DEFERRED_EXPLICIT">
+
+        <id name="id" column="id" type="integer">
+            <generator strategy="AUTO" />
+        </id>
+
+        <field name="project" column="project" length="255"/>
+        <field name="method" column="method" length="255"/>
+        <field name="client" column="client" type="json_document">
+            <options>
+                <option name="jsonb">true</option>
+            </options>
+        </field>
+        <field name="data" column="data" type="json_document">
+            <options>
+                <option name="jsonb">true</option>
+            </options>
+        </field>
+        <field name="createdAt" column="created_at" type="datetime_immutable" column-definition="TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP"/>
+    </entity>
+</doctrine-mapping>

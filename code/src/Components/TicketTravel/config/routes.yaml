@@ -1,0 +1,7 @@
+segment_gql:
+  path:     /api/crm/segment
+  controller: Travel\Components\TicketTravel\UI\GraphQL\Segment\Action\SegmentAction
+
+tariff_gql:
+  path:     /api/crm/tariff
+  controller: Travel\Components\TicketTravel\UI\GraphQL\Travel\Action\TravelAction

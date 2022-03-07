@@ -1,0 +1,7 @@
+FROM nginx:1.20
+ADD ./docker/nginx/travel.conf /etc/nginx/conf.d/
+
+EXPOSE 81
+
+
+

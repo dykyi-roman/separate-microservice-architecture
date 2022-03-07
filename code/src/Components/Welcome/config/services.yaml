@@ -1,0 +1,6 @@
+parameters:
+
+services:
+  Travel\Components\Welcome\UI\Web\:
+    resource: '../UI/Web/'
+    tags: [ 'controller.service_arguments' ]

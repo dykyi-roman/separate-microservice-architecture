@@ -1,0 +1,55 @@
+
+replicaCount: 1
+
+image_ngx:
+  repository: registry.gitlab.travel.company/marketplacepublic/travel/ngx
+  pullPolicy: Always
+  tag: latest
+
+image_fpm:
+  repository: registry.gitlab.travel.company/marketplacepublic/travel/fpm-preprod
+  pullPolicy: IfNotPresent
+  tag: 01d9585c
+
+imagePullSecrets:
+  - name: regcred
+  
+
+
+podAnnotations: {}
+
+
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: true
+  annotations: {}
+  hosts:
+    - host: market-travel.preprod.pld.k8s.travel.company
+      paths:
+        - /
+  tls: 
+    - hosts:
+      - market-travel.preprod.pld.k8s.travel.company
+
+
+resources: 
+ limits:
+   cpu: 100m
+   memory: 128Mi
+ requests:
+   cpu: 100m
+   memory: 128Mi
+
+args: ["php bin/console --no-interaction doctrine:migrations:migrate"]
+
+
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+

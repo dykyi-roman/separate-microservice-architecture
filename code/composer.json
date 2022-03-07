@@ -1,0 +1,102 @@
+{
+    "name": "travel/travel",
+    "description": "Travel",
+    "type": "project",
+    "license": "proprietary",
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "require": {
+        "php": ">=8.1",
+        "ext-ctype": "*",
+        "ext-iconv": "*",
+        "doctrine/doctrine-bundle": "^2.5",
+        "doctrine/doctrine-migrations-bundle": "^3.2",
+        "doctrine/orm": "^2.11",
+        "dunglas/doctrine-json-odm": "^1.2",
+        "gmostafa/php-graphql-client": "^1.13",
+        "guzzlehttp/guzzle": "^7.4",
+        "lcobucci/jwt": "^4.1",
+        "nelmio/cors-bundle": "^2.2",
+        "predis/predis": "^1.1",
+        "psr/http-message": "^1.0",
+        "symfony/console": "6.0.*",
+        "symfony/dotenv": "6.0.*",
+        "symfony/flex": "^1.3.1",
+        "symfony/framework-bundle": "6.0.*",
+        "symfony/messenger": "6.0.*",
+        "symfony/monolog-bundle": "^3.7",
+        "symfony/proxy-manager-bridge": "6.0.*",
+        "symfony/runtime": "6.0.*",
+        "symfony/uid": "6.0.*",
+        "symfony/yaml": "6.0.*",
+        "webmozart/assert": "^1.10",
+        "webonyx/graphql-php": "^14.11"
+    },
+    "require-dev": {
+        "fakerphp/faker": "^1.17",
+        "friendsofphp/php-cs-fixer": "^3.5",
+        "phpstan/phpstan": "^1.4",
+        "phpunit/phpunit": "^9.5",
+        "qossmic/deptrac-shim": "0.*",
+        "roave/security-advisories": "dev-latest",
+        "squizlabs/php_codesniffer": "^3.6",
+        "symfony/phpunit-bridge": "^6.0",
+        "symplify/coding-standard": "^9.4",
+        "symplify/easy-coding-standard": "^9.4",
+        "vimeo/psalm": "^4.18"
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": {
+            "*": "dist"
+        },
+        "sort-packages": true,
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true,
+            "composer/package-versions-deprecated": true,
+            "symfony/flex": true,
+            "symfony/runtime": true
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Travel\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Travel\\Components\\TicketTravel\\Tests\\": "src/Components/TicketTravel/Tests/",
+            "Travel\\Components\\TTN\\Tests\\": "src/Components/TTN/Tests/"
+        }
+    },
+    "replace": {
+        "symfony/polyfill-ctype": "*",
+        "symfony/polyfill-iconv": "*",
+        "symfony/polyfill-php72": "*"
+    },
+    "scripts": {
+        "auto-scripts": {
+            "cache:clear": "symfony-cmd",
+            "assets:install %PUBLIC_DIR%": "symfony-cmd"
+        },
+        "post-install-cmd": [
+            "@auto-scripts"
+        ],
+        "post-update-cmd": [
+            "@auto-scripts"
+        ],
+        "composer-validate": [
+            "composer validate",
+            "composer unused"
+        ]
+    },
+    "conflict": {
+        "symfony/symfony": "*"
+    },
+    "extra": {
+        "symfony": {
+            "allow-contrib": false,
+            "require": "6.0.*"
+        }
+    }
+}

@@ -1,0 +1,97 @@
+parameters:
+
+services:
+  Travel\Components\TicketTravel\UI\Web\:
+    resource: '../UI/Web/'
+    tags: [ 'controller.service_arguments' ]
+
+#
+# Segment
+#
+
+  Travel\Components\TicketTravel\UI\GraphQL\Segment\Action\:
+    resource: '../UI/GraphQL/Segment/Action/'
+    tags: [ 'controller.service_arguments' ]
+
+  Travel\Components\TicketTravel\Infrastructure\Gateway\SmartTravel\SmartTravelClient:
+    arguments:
+      - "%env(resolve:SMART_TRAVEL_API_URL)%"
+      - "%env(resolve:SMART_TRAVEL_API_TOKEN)%"
+      - '@Travel\Infrastructure\Http\Client\GuzzleClient'
+
+  Travel\Components\TicketTravel\Infrastructure\Gateway\Delivery\DeliveryClient:
+    arguments:
+      - "%env(resolve:TRAVEL_API_URL)%"
+      - "%env(resolve:TRAVEL_API_AUTH)%"
+      - '@Travel\Infrastructure\Http\Client\GuzzleClient'
+
+  Travel\Components\TicketTravel\Infrastructure\Gateway\Gapi\GapiClient:
+    arguments:
+      - "%env(resolve:GAPI_API_URL)%"
+      - "%env(resolve:GAPI_API_AUTH)%"
+      - '@Travel\Infrastructure\Http\Client\GuzzleClient'
+
+  Travel\Components\TicketTravel\Infrastructure\Gateway\InterCard\InterCardClient:
+    arguments:
+      - "%env(resolve:INTERIOR_CARD_API_URL)%"
+      - "%env(resolve:INTERIOR_CARD_API_AUTH)%"
+      - '@Travel\Infrastructure\Http\Client\GuzzleClient'
+
+  Travel\Components\TicketTravel\Features\Segment\SmartTravel\Folder\SmartTravelGatewayInterface: '@Travel\Components\TicketTravel\Infrastructure\Gateway\SmartTravel\FolderGateway'
+  Travel\Components\TicketTravel\Infrastructure\Gateway\SmartTravel\FolderGateway:
+    autowire: true
+
+  Travel\Components\TicketTravel\Features\Segment\SmartTravel\Condition\SmartTravelGatewayInterface: '@Travel\Components\TicketTravel\Infrastructure\Gateway\SmartTravel\ConditionGateway'
+  Travel\Components\TicketTravel\Infrastructure\Gateway\SmartTravel\ConditionGateway:
+    autowire: true
+
+  Travel\Components\TicketTravel\Features\Segment\Category\CategoryGatewayInterface: '@Travel\Components\TicketTravel\Infrastructure\Gateway\Gapi\GapiGateway'
+  Travel\Components\TicketTravel\Infrastructure\Gateway\Gapi\GapiGateway:
+    autowire: true
+
+  Travel\Components\TicketTravel\Features\Segment\Seller\SellerGatewayInterface: '@Travel\Components\TicketTravel\Infrastructure\Gateway\InterCard\InterCardGateway'
+  Travel\Components\TicketTravel\Infrastructure\Gateway\InterCard\InterCardGateway:
+    autowire: true
+
+#
+# Travel
+#
+  Travel\Components\TicketTravel\UI\GraphQL\Travel\Action\:
+    resource: '../UI/GraphQL/Travel/Action/'
+    tags: [ 'controller.service_arguments' ]
+
+  Travel\Components\TicketTravel\Infrastructure\Gateway\MapLocations\MapLocationsClient:
+    arguments:
+      - "%env(resolve:MAP_LOCATIONS_API_URL)%"
+      - "%env(resolve:MAP_LOCATIONS_API_USERNAME)%"
+      - "%env(resolve:MAP_LOCATIONS_API_PASSWORD)%"
+      - '@Travel\Infrastructure\Http\Client\GuzzleClient'
+
+  Travel\Components\TicketTravel\Features\Travel\LocationZone\LocationZoneGatewayInterface: '@Travel\Components\TicketTravel\Infrastructure\Gateway\MapLocations\MapLocationsGateway'
+  Travel\Components\TicketTravel\Infrastructure\Gateway\MapLocations\MapLocationsGateway:
+    autowire: true
+
+  Travel\Components\TicketTravel\Features\Travel\TravelCost\TravelCostGatewayInterface: '@Travel\Components\TicketTravel\Infrastructure\Gateway\Delivery\TravelCostGateway'
+  Travel\Components\TicketTravel\Infrastructure\Gateway\Delivery\TravelCostGateway:
+    autowire: true
+
+#
+# Infrastructure
+#
+  Travel\Components\TicketTravel\Infrastructure\Documentation\DocumentationLoader:
+    autowire: true
+
+  Travel\Components\TicketTravel\Features\Travel\Travel\TravelGatewayInterface: '@Travel\Components\TicketTravel\Infrastructure\Gateway\Delivery\TravelGateway'
+  Travel\Components\TicketTravel\Infrastructure\Gateway\Delivery\TravelGateway:
+    autowire: true
+
+  Travel\Components\TicketTravel\Infrastructure\JWT\JWTReader:
+    autowire: true
+
+  Travel\Components\TicketTravel\Infrastructure\JWT\JWTValidator:
+    autowire: true
+
+  Travel\Components\TicketTravel\Infrastructure\Repository\ActionLogRepository:
+    autowire: true
+
+  Travel\Components\TicketTravel\Features\Logger\ActionLogRepositoryInterface: '@Travel\Components\TicketTravel\Infrastructure\Repository\ActionLogRepository'

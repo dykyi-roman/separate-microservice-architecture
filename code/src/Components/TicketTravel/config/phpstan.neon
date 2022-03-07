@@ -1,0 +1,10 @@
+parameters:
+    level: 9
+    paths:
+        - ../TicketTravel
+    excludePaths:
+        - ../config
+    checkMissingIterableValueType: false
+    checkGenericClassInNonGenericObjectType: false
+    ignoreErrors:
+        - '#Cannot cast mixed to string.#'

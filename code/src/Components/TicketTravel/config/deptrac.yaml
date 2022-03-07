@@ -1,0 +1,49 @@
+parameters:
+  paths:
+    - ./../
+  exclude_files: ~
+  layers:
+    - name: Application
+      collectors:
+        - type: bool
+          must:
+            - type: className
+              regex: Travel\\TicketTravel\\Application\\.*
+          must_not:
+            - type: className
+              regex: Travel\\TicketTravel\\Application\\Dto
+    - name: Domain
+      collectors:
+        - type: bool
+          must:
+            - type: className
+              regex: Travel\\TicketTravel\\Features\\.*
+          must_not:
+            - type: className
+              regex: .*.Interface
+            - type: className
+              regex: .*.Dto
+            - type: className
+              regex: .*\\Entity\\.*
+
+    - name: Infrastructure
+      collectors:
+        - type: className
+          regex: Travel\\TicketTravel\\Infrastructure\\.*
+
+    - name: UI
+      collectors:
+        - type: className
+          regex: Travel\\TicketTravel\\UI\\.*
+
+  ruleset:
+    UI:
+      - Application
+      - Infrastructure
+
+    Application:
+      - Domain
+      - Infrastructure
+
+    Domain: ~
+    Infrastructure: ~

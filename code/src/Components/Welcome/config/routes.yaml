@@ -1,0 +1,3 @@
+welcome_page:
+  path:     /
+  controller: Travel\Components\Welcome\UI\Web\WelcomeAction
